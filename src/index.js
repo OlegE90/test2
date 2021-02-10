@@ -89,34 +89,32 @@ function getCheckboxHTML(data) {
     var elem = data[i];
 
     html +=
-      '<div class="' +
+      '<label class="' +
       checkboxBlock +
       '">' +
       '<input type="checkbox" value="' +
       elem.parametradd +
       '" name="options">' +
-      '<label for="scales">' +
       elem.problem +
-      "</label>" +
-      "<div>";
+      "</label>";
   }
 
   return html;
 }
 
 function getStringByCheckbox(separator) {
-  var str = "";
+  var str = [];
   var markedCheckbox = document.querySelectorAll(
     "." + checkboxBlock + ' > [type="checkbox"]:checked'
   );
 
   for (var i = 0; i < markedCheckbox.length; i++) {
     if (markedCheckbox[i].checked) {
-      str += markedCheckbox[i].value + separator;
+      str.push(markedCheckbox[i].value);
     }
   }
 
-  return str;
+  return str.join(separator);
 }
 
 var checkboxes = getCheckboxHTML(data.data.problems);
@@ -130,9 +128,5 @@ function handlerSubmitForm(event) {
   event.preventDefault();
 }
 
-console.log(form);
-if (form) {
-  form.addEventListener("submit", handlerSubmitForm);
-}
-
+form.addEventListener("submit", handlerSubmitForm);
 document.getElementById("df432-options").innerHTML = checkboxes;

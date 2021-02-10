@@ -6,8 +6,10 @@ body {
   margin: 5px 0;
 }
 
-.f432-option {
-  margin: 15px 0;
+.df432-option {
+  display: block;
+  margin: 10px 0;
+  cursor: pointer;
 }
 
 .df432-footer {
