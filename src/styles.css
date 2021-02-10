@@ -1,0 +1,29 @@
+body {
+  font-family: sans-serif;
+}
+.df432-h1 {
+  font-size: 16px;
+  margin: 5px 0;
+}
+
+.f432-option {
+  margin: 15px 0;
+}
+
+.df432-footer {
+  background-color: #d4d0d0;
+  margin-top: 10px;
+  padding: 20px 10px;
+}
+
+.df432-button {
+  border-radius: 5px;
+  background-color: #4caf50; /* Green */
+  border: none;
+  color: white;
+  padding: 10px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
