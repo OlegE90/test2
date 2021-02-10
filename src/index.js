@@ -144,12 +144,12 @@ function getAttributesByCheckbox(separator) {
   return str.join(separator);
 }
 
-function handleClickSubmitButton(event) {
+function handlerSubmitButtonClick(event) {
   var attributes = getAttributesByCheckbox(stringSeparator);
   var url = baseUrl + attributes;
   window.location.href = url;
   event.preventDefault();
 }
 
-form.addEventListener("submit", handleClickSubmitButton);
+form.addEventListener("submit", handlerSubmitButtonClick);
 document.getElementById("df432-options").innerHTML = checkboxes;
