@@ -1,6 +1,5 @@
 import "./styles.css";
 
-var checkboxBlock = "df432-option";
 var data = {
   data: {
     basicURL:
@@ -74,10 +73,28 @@ var data = {
         id: "13",
         problem: "Чувство вины",
         parametradd: "Чувство+вины"
+      },
+      {
+        id: "14",
+        isSend: false,
+        problem: "Чувство вины",
+        parametradd: "Чувство+вины"
+      },
+      {
+        id: "15",
+        isSend: false,
+        problem: "Чувство вины",
+        parametradd: "Чувство+вины"
       }
     ]
   }
 };
+
+var checkboxBlock = "df432-option";
+var stringSeparator = data.data.plussymbol;
+var baseUrl = data.data.basicURL;
+var checkboxes = getCheckboxHTML(data.data.problems);
+var form = document.getElementById("form-options");
 
 function getCheckboxHTML(data) {
   if (!Array.isArray(data)) {
@@ -87,12 +104,17 @@ function getCheckboxHTML(data) {
 
   for (var i = 0; i < data.length; i++) {
     var elem = data[i];
+    var isSend = typeof elem.isSend === "undefined" ? true : elem.isSend;
 
     html +=
       '<label class="' +
       checkboxBlock +
       '">' +
-      '<input type="checkbox" value="' +
+      '<input data-id="' +
+      elem.id +
+      '" data-isSend="' +
+      isSend +
+      '" type="checkbox" value="' +
       elem.parametradd +
       '" name="options">' +
       elem.problem +
@@ -102,31 +124,32 @@ function getCheckboxHTML(data) {
   return html;
 }
 
-function getStringByCheckbox(separator) {
+function isSendCheck(elem) {
+  var isSend = elem.getAttribute("data-isSend");
+
+  return isSend === "true" || false;
+}
+
+function getAttributesByCheckbox(separator) {
   var str = [];
   var markedCheckbox = document.querySelectorAll(
     "." + checkboxBlock + ' > [type="checkbox"]:checked'
   );
 
   for (var i = 0; i < markedCheckbox.length; i++) {
-    if (markedCheckbox[i].checked) {
+    if (isSendCheck(markedCheckbox[i]) && markedCheckbox[i].checked) {
       str.push(markedCheckbox[i].value);
     }
   }
-
   return str.join(separator);
 }
 
-var checkboxes = getCheckboxHTML(data.data.problems);
-var form = document.getElementById("form-options");
-var stringSeparator = data.data.plussymbol;
-var baseUrl = data.data.basicURL;
-
-function handlerSubmitForm(event) {
-  var str = getStringByCheckbox(stringSeparator);
-  document.getElementById("baseUrl").innerHTML = baseUrl + str;
+function handlerClickSubmitButton(event) {
+  var attributes = getAttributesByCheckbox(stringSeparator);
+  var url = baseUrl + attributes;
+  window.location.href = url;
   event.preventDefault();
 }
 
-form.addEventListener("submit", handlerSubmitForm);
+form.addEventListener("submit", handlerClickSubmitButton);
 document.getElementById("df432-options").innerHTML = checkboxes;
